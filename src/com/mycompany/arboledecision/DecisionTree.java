@@ -9,6 +9,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,17 +24,24 @@ import javax.swing.UIManager;
  */
 class DecisionTree {
 
-
     private static BufferedReader keyboardInput = new BufferedReader(new InputStreamReader(System.in));
     private BinNode rootNode = null;
     private String animal = "";
     private boolean animalFinded = false;
     private int totalnodes = 0; //keeps track of the inorder number for horiz. scaling 
-    private int maxheight=0;
-    private String inputString= new String();
-
+    private int maxheight = 0;
+    private String inputString = new String();
+    private File file = null;
 
     public DecisionTree() {
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+    public void setFile(File file) {
+        this.file = file;
     }
 
     public static BufferedReader getKeyboardInput() {
@@ -91,7 +99,6 @@ class DecisionTree {
     public void setInputString(String inputString) {
         this.inputString = inputString;
     }
-
 
     public void createRoot(int newNodeID, String newQuestAns) {
         rootNode = new BinNode(newNodeID, newQuestAns);
@@ -205,9 +212,22 @@ class DecisionTree {
         }
     }
 
-
     public void queryBinTree() throws IOException {
         queryBinTree(rootNode);
+    }
+
+    private static String limpiar(String texto) {
+        String original = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ";
+        // Cadena de caracteres ASCII que reemplazarán los originales.
+        String ascii = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYBaaaaaaaceeeeiiiionoooooouuuuyy";
+        String output = texto;
+        for (int i = 0; i < original.length(); i++) {
+            // Reemplazamos los caracteres especiales.
+
+            texto = texto.replace(original.charAt(i), ascii.charAt(i));
+
+        }
+        return texto;
     }
 
     private void queryBinTree(BinNode currentNode) throws IOException {
@@ -226,28 +246,43 @@ class DecisionTree {
                         options, //button titles
                         options[0] //default button
                 );
+                //if(result == -1){return;}
                 System.out.println("¿" + currentNode.getQuestOrAns() + "? ( \"Si\" o \"No\")");
-                String answer = result == 0 ? "Si" : "No"; //keyboardInput.readLine();
+                String answer = "";
+                if (result == 0) {
+                    answer = "Si";
+                } else if (result == 1) {
+                    answer = "No";
+                }
+                // = result == 0 ? "Si" : "No"; //keyboardInput.readLine();
                 if (answer.equalsIgnoreCase("Si")) {
                     animal = currentNode.getQuestOrAns();
                     animalFinded = true;
                 } else if (answer.equalsIgnoreCase("No")) {
                     System.out.println("¿En qué animal estabas pensando?");
                     String newAnimal = JOptionPane.showInputDialog("¿En qué animal estabas pensando?");//keyboardInput.readLine();
-                    if(newAnimal == null){System.exit(1);}
+                    if (newAnimal == null) {
+                        return;
+                    }
                     System.out.println("¿Qué diferencia a un " + newAnimal + " de un " + currentNode.getQuestOrAns() + "?");
                     String characteristic = JOptionPane.showInputDialog("¿Qué diferencia a un " + newAnimal + " de un " + currentNode.getQuestOrAns() + "?");//keyboardInput.readLine();
-                   if(characteristic == null){System.exit(1);}
+                    if (characteristic == null) {
+                        return;
+                    }
                     System.out.println("¿Si el animal fuese un " + newAnimal + " cuál sería la respuesta a la pregunta?");
                     String newAnswer = JOptionPane.showInputDialog("¿Si el animal fuese un " + newAnimal + " cuál sería la respuesta a la pregunta?");//keyboardInput.readLine();
-                    if(newAnswer == null){System.exit(1);}
-                    
+                    if (newAnswer == null) {
+                        return;
+                    }
+
                     StringBuilder sb = new StringBuilder();
 
-                    try ( BufferedReader br = new BufferedReader(new FileReader("animal.csv"))) {
+                    try ( BufferedReader br = new BufferedReader(
+                            new InputStreamReader(new FileInputStream(file)))) {
                         String line;
 
                         while ((line = br.readLine()) != null) {
+                            line = limpiar(line).trim().toLowerCase();
                             System.out.println("line " + line);
                             System.out.println("line.contains(currentNode.getQuestOrAns()) " + line.contains(currentNode.getQuestOrAns()));
                             if (line.contains(currentNode.getQuestOrAns())) {
@@ -259,7 +294,7 @@ class DecisionTree {
                         }
                     }
 
-                    try ( PrintWriter writer = new PrintWriter(new File("animal.csv"))) {
+                    try ( PrintWriter writer = new PrintWriter(file)) {
 
                         sb.append(characteristic);
                         sb.append(", ");
@@ -298,21 +333,23 @@ class DecisionTree {
 
         // Question
         askQuestion(currentNode);
+
     }
-    
-    private void getComponents(Container c){
 
-    Component[] m = c.getComponents();
+    private void getComponents(Container c) {
 
-    for(int i = 0; i < m.length; i++){
+        Component[] m = c.getComponents();
 
-        if(m[i].getClass().getName() == "javax.swing.JPanel")
-            m[i].setBackground(Color.white);
+        for (int i = 0; i < m.length; i++) {
 
-        if(c.getClass().isInstance(m[i]));
-            getComponents((Container)m[i]);
+            if (m[i].getClass().getName() == "javax.swing.JPanel") {
+                m[i].setBackground(Color.white);
+            }
+
+            if (c.getClass().isInstance(m[i]));
+            getComponents((Container) m[i]);
+        }
     }
-}
 
     private void askQuestion(BinNode currentNode) throws IOException {
         String[] options = {"Si", "No"};
@@ -327,9 +364,18 @@ class DecisionTree {
                 options, //button titles
                 options[0] //default button
         );
-        System.out.println("result "+result);
+//        if (result == -1) {
+//            return;
+//        }
+        System.out.println("result " + result);
         System.out.println("¿" + currentNode.getQuestOrAns() + "? ( \"Si\" o \"No\")");
-        String answer = result == 0 ? "Si" : "No"; //keyboardInput.readLine();
+        // String answer = result == 0 ? "Si" : "No"; //keyboardInput.readLine();
+        String answer = "";
+        if (result == 0) {
+            answer = "Si";
+        } else if (result == 1) {
+            answer = "No";
+        }
         if (answer.equalsIgnoreCase("Si")) {
             queryBinTree(currentNode.getYesBranch());
         } else {
@@ -342,9 +388,7 @@ class DecisionTree {
         }
     }
 
-
-
- /* OUTPUT BIN TREE */
+    /* OUTPUT BIN TREE */
     public void outputBinTree() {
 
         outputBinTree("1", rootNode);
@@ -367,28 +411,35 @@ class DecisionTree {
         // Go down no branch
         outputBinTree(tag + ".2", currentNode.getNoBranch());
     }
-    
-    public int treeHeight(BinNode t){
-	if(t==null) return -1;
-          else return 1 + max(treeHeight(t.getNoBranch()),treeHeight(t.getYesBranch()));
+
+    public int treeHeight(BinNode t) {
+        if (t == null) {
+            return -1;
+        } else {
+            return 1 + max(treeHeight(t.getNoBranch()), treeHeight(t.getYesBranch()));
+        }
     }
-    public int max(int a, int b){
-	  if(a>b) return a; else return b;
+
+    public int max(int a, int b) {
+        if (a > b) {
+            return a;
+        } else {
+            return b;
+        }
     }
 
     public void computeNodePositions() {
-      int depth = 1;
-      inorder_traversal(rootNode, depth);
+        int depth = 1;
+        inorder_traversal(rootNode, depth);
     }
 
 //traverses tree and computes x,y position of each node, stores it in the node
-
-    public void inorder_traversal(BinNode t, int depth) { 
-      if (t != null) {
-        inorder_traversal(t.getNoBranch(), depth + 1); //add 1 to depth (y coordinate) 
-        t.setXpos(totalnodes++) ; //x coord is node number in inorder traversal
-        t.setYpos(depth); // mark y coord as depth
-        inorder_traversal(t.getYesBranch(), depth + 1);
-      }
-}
+    public void inorder_traversal(BinNode t, int depth) {
+        if (t != null) {
+            inorder_traversal(t.getNoBranch(), depth + 1); //add 1 to depth (y coordinate) 
+            t.setXpos(totalnodes++); //x coord is node number in inorder traversal
+            t.setYpos(depth); // mark y coord as depth
+            inorder_traversal(t.getYesBranch(), depth + 1);
+        }
+    }
 }

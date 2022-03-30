@@ -98,7 +98,6 @@ public class Interfaz extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(0, 0, 0));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("RESETEAR CONOCIMIENTOS");
-        jButton6.setActionCommand("RESETEAR CONOCIMIENTOS");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -190,15 +189,16 @@ public class Interfaz extends javax.swing.JFrame {
         String conocimiento = JOptionPane.showInputDialog("¿Qué conocimiento deseas buscar?");
 
         if (conocimiento == null) {
-            System.exit(1);
+            return;
         }
 
         conocimiento = limpiar(conocimiento).trim().toLowerCase();
         BinNode temp = tabla_hash.buscar(conocimiento);
-        if (temp == null) {
-            JOptionPane.showMessageDialog(null, "El conocimiento " + conocimiento + " no existe en nuestra base de conocimientos");
+
+        if (temp != null && temp.getQuestOrAns().equalsIgnoreCase(conocimiento)) {
+            JOptionPane.showMessageDialog(null, "El conocimiento " + conocimiento + " Si existe en nuestra base de conocimientos");
         } else {
-            JOptionPane.showMessageDialog(null, "El conocimiento " + conocimiento + " si existe en nuestra base de conocimientos");
+            JOptionPane.showMessageDialog(null, "El conocimiento " + conocimiento + " No existe en nuestra base de conocimientos");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -219,7 +219,7 @@ public class Interfaz extends javax.swing.JFrame {
         }
         newTree.setTotalnodes(0);
         newTree.computeNodePositions(); //finds x,y positions of the tree nodes
-        newTree.setMaxheight( newTree.treeHeight(newTree.getRootNode())) ; //finds tree height for scaling y axis
+        newTree.setMaxheight(newTree.treeHeight(newTree.getRootNode())); //finds tree height for scaling y axis
         DisplaySimpleTree dt = new DisplaySimpleTree(newTree);//get a display panel
         dt.setSize(new Dimension(1000, 800));
         dt.setLocation(500, 0);
@@ -275,10 +275,11 @@ public class Interfaz extends javax.swing.JFrame {
 
         // Create instance of class DecisionTree
         newTree = new DecisionTree();
+        newTree.setFile(file);
 
         tabla_hash = new HashTable(10111);
         try ( BufferedReader br = new BufferedReader(
-                new InputStreamReader(new FileInputStream(file), "ISO-8859-1"));) {
+                new InputStreamReader(new FileInputStream(file)));) {
             String line;
             int cont = 1;
             while ((line = br.readLine()) != null) {
@@ -349,15 +350,24 @@ public class Interfaz extends javax.swing.JFrame {
                 options, //button titles
                 options[0] //default button
         );
-
-        String answer = result == 0 ? "Si" : "No";
+//        if (result == -1) {
+//            return;
+//        }
+        // String answer = result == 0 ? "Si" : "No";
+        String answer = "";
+        if (result == 0) {
+            answer = "Si";
+        } else if (result == 1) {
+            answer = "No";
+        }
         System.out.println("¿Deseas salir?");
         //   String answer = keyboardInput.readLine();
+        generateTree();
         if (answer.equalsIgnoreCase("Si")) {
             return;
         } else {
             if (answer.equalsIgnoreCase("No")) {
-                generateTree();
+                
 
                 // Output tree
                 System.out.println("\nOUTPUT ARBOLES DE DECISION");

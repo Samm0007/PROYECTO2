@@ -1,12 +1,14 @@
-Vuela, Ladra, Caza
-Ladra, Tiene Colmillos, Es medio Lobo
-Tiene Colmillos, Cuello Largo, Tiene trompa
-Cuello largo, Ratón, Jirafa
-Tiene trompa, Le gusta entrar al agua, Elefante
-Le gusta entrar al agua, Jabalí, Se sumerge por largo tiempo
-Se sumerge por largo tiempo, Rinoceronte, Hipopótamo
-Caza, Come carroña, Es rojo
-Come carroña, Es insecto, Buitre
-Es insecto, Pájaro, Mosca
-Es medio Lobo, Perro, Husky
-Es rojo, Águila, Gavilan
+vuela, ladra, caza
+ladra, tiene colmillos, es medio lobo
+tiene colmillos, cuello largo, tiene trompa
+cuello largo, es mascota, jirafa
+tiene trompa, le gusta entrar al agua, elefante
+le gusta entrar al agua, jabali, se sumerge por largo tiempo
+se sumerge por largo tiempo, rinoceronte, hipopotamo
+caza, come carrona, es rojo
+come carrona, es insecto, buitre
+es insecto, amarillo, mosca
+es medio lobo, perro, husky
+es rojo, aguila, gavilan
+es mascota, raton, hamster
+amarillo, pajaro, Turpial
