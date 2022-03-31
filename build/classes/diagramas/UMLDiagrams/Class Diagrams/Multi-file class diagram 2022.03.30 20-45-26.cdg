@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Multi-file class diagram">
+  <ClassDiagramComponents>
+    <Class name="BinNode" package="com.mycompany.arboledecision" visibility="public" xPosition="20.0" yPosition="820.0">
+      <Fields>
+        <Field name="nodeID" type="int" visibility="private"/>
+        <Field name="fatherNodeID" type="int" visibility="private"/>
+        <Field name="questOrAns" type="String" visibility="private"/>
+        <Field name="yesBranch" type="BinNode" visibility="private"/>
+        <Field name="noBranch" type="BinNode" visibility="private"/>
+        <Field name="fatherQuestOrAns" type="String" visibility="private"/>
+        <Field name="next" type="BinNode" visibility="private"/>
+        <Field name="xpos" type="int" visibility="private"/>
+        <Field name="ypos" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="newNodeID"/>
+          <Argument type="String" name="newQuestAns"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getXpos" returnType="int" visibility="public"/>
+        <Method name="setXpos" returnType="void" visibility="public">
+          <Argument type="int" name="xpos"/>
+        </Method>
+        <Method name="getYpos" returnType="int" visibility="public"/>
+        <Method name="setYpos" returnType="void" visibility="public">
+          <Argument type="int" name="ypos"/>
+        </Method>
+        <Method name="getFatherNodeID" returnType="int" visibility="public"/>
+        <Method name="setFatherNodeID" returnType="void" visibility="public">
+          <Argument type="int" name="fatherNodeID"/>
+        </Method>
+        <Method name="getFatherQuestOrAns" returnType="String" visibility="public"/>
+        <Method name="setFatherQuestOrAns" returnType="void" visibility="public">
+          <Argument type="String" name="fatherQuestOrAns"/>
+        </Method>
+        <Method name="getNext" returnType="BinNode" visibility="public"/>
+        <Method name="setNext" returnType="void" visibility="public">
+          <Argument type="BinNode" name="next"/>
+        </Method>
+        <Method name="getNodeID" returnType="int" visibility="public"/>
+        <Method name="setNodeID" returnType="void" visibility="public">
+          <Argument type="int" name="nodeID"/>
+        </Method>
+        <Method name="getQuestOrAns" returnType="String" visibility="public"/>
+        <Method name="setQuestOrAns" returnType="void" visibility="public">
+          <Argument type="String" name="questOrAns"/>
+        </Method>
+        <Method name="getYesBranch" returnType="BinNode" visibility="public"/>
+        <Method name="setYesBranch" returnType="void" visibility="public">
+          <Argument type="BinNode" name="yesBranch"/>
+        </Method>
+        <Method name="getNoBranch" returnType="BinNode" visibility="public"/>
+        <Method name="setNoBranch" returnType="void" visibility="public">
+          <Argument type="BinNode" name="noBranch"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DecisionTree" package="com.mycompany.arboledecision" visibility="public" xPosition="320.0" yPosition="820.0">
+      <Fields>
+        <Field name="keyboardInput" type="BufferedReader" visibility="private" isStatic="true"/>
+        <Field name="rootNode" type="BinNode" visibility="private"/>
+        <Field name="animal" type="String" visibility="private"/>
+        <Field name="animalFinded" type="boolean" visibility="private"/>
+        <Field name="totalnodes" type="int" visibility="private"/>
+        <Field name="maxheight" type="int" visibility="private"/>
+        <Field name="inputString" type="String" visibility="private"/>
+        <Field name="file" type="File" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getFile" returnType="File" visibility="public"/>
+        <Method name="setFile" returnType="void" visibility="public">
+          <Argument type="File" name="file"/>
+        </Method>
+        <Method name="getKeyboardInput" returnType="BufferedReader" visibility="public" isStatic="true"/>
+        <Method name="setKeyboardInput" returnType="void" visibility="public" isStatic="true">
+          <Argument type="BufferedReader" name="keyboardInput"/>
+        </Method>
+        <Method name="getRootNode" returnType="BinNode" visibility="public"/>
+        <Method name="setRootNode" returnType="void" visibility="public">
+          <Argument type="BinNode" name="rootNode"/>
+        </Method>
+        <Method name="getAnimal" returnType="String" visibility="public"/>
+        <Method name="setAnimal" returnType="void" visibility="public">
+          <Argument type="String" name="animal"/>
+        </Method>
+        <Method name="isAnimalFinded" returnType="boolean" visibility="public"/>
+        <Method name="setAnimalFinded" returnType="void" visibility="public">
+          <Argument type="boolean" name="animalFinded"/>
+        </Method>
+        <Method name="getTotalnodes" returnType="int" visibility="public"/>
+        <Method name="setTotalnodes" returnType="void" visibility="public">
+          <Argument type="int" name="totalnodes"/>
+        </Method>
+        <Method name="getMaxheight" returnType="int" visibility="public"/>
+        <Method name="setMaxheight" returnType="void" visibility="public">
+          <Argument type="int" name="maxheight"/>
+        </Method>
+        <Method name="getInputString" returnType="String" visibility="public"/>
+        <Method name="setInputString" returnType="void" visibility="public">
+          <Argument type="String" name="inputString"/>
+        </Method>
+        <Method name="createRoot" returnType="void" visibility="public">
+          <Argument type="int" name="newNodeID"/>
+          <Argument type="String" name="newQuestAns"/>
+        </Method>
+        <Method name="addYesNode" returnType="void" visibility="public">
+          <Argument type="int" name="existingNodeID"/>
+          <Argument type="int" name="newNodeID"/>
+          <Argument type="String" name="newQuestAns"/>
+        </Method>
+        <Method name="searchTreeAndAddYesNode" returnType="boolean" visibility="private">
+          <Argument type="BinNode" name="currentNode"/>
+          <Argument type="int" name="existingNodeID"/>
+          <Argument type="int" name="newNodeID"/>
+          <Argument type="String" name="newQuestAns"/>
+        </Method>
+        <Method name="addNoNode" returnType="void" visibility="public">
+          <Argument type="int" name="existingNodeID"/>
+          <Argument type="int" name="newNodeID"/>
+          <Argument type="String" name="newQuestAns"/>
+        </Method>
+        <Method name="searchTreeAndAddNoNode" returnType="boolean" visibility="private">
+          <Argument type="BinNode" name="currentNode"/>
+          <Argument type="int" name="existingNodeID"/>
+          <Argument type="int" name="newNodeID"/>
+          <Argument type="String" name="newQuestAns"/>
+        </Method>
+        <Method name="queryBinTree" returnType="void" visibility="public"/>
+        <Method name="limpiar" returnType="String" visibility="private" isStatic="true">
+          <Argument type="String" name="texto"/>
+        </Method>
+        <Method name="queryBinTree" returnType="void" visibility="private">
+          <Argument type="BinNode" name="currentNode"/>
+        </Method>
+        <Method name="getComponents" returnType="void" visibility="private">
+          <Argument type="Container" name="c"/>
+        </Method>
+        <Method name="askQuestion" returnType="void" visibility="private">
+          <Argument type="BinNode" name="currentNode"/>
+        </Method>
+        <Method name="outputBinTree" returnType="void" visibility="public"/>
+        <Method name="outputBinTree" returnType="void" visibility="private">
+          <Argument type="String" name="tag"/>
+          <Argument type="BinNode" name="currentNode"/>
+        </Method>
+        <Method name="treeHeight" returnType="int" visibility="public">
+          <Argument type="BinNode" name="t"/>
+        </Method>
+        <Method name="max" returnType="int" visibility="public">
+          <Argument type="int" name="a"/>
+          <Argument type="int" name="b"/>
+        </Method>
+        <Method name="computeNodePositions" returnType="void" visibility="public"/>
+        <Method name="inorder_traversal" returnType="void" visibility="public">
+          <Argument type="BinNode" name="t"/>
+          <Argument type="int" name="depth"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DisplayPanel" package="com.mycompany.arboledecision" visibility="public" xPosition="620.0" yPosition="820.0">
+      <Fields>
+        <Field name="t" type="DecisionTree" visibility="package"/>
+        <Field name="xs" type="int" visibility="package"/>
+        <Field name="ys" type="int" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="DecisionTree" name="t"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="paintComponent" returnType="void" visibility="protected">
+          <Argument type="Graphics" name="g"/>
+        </Method>
+        <Method name="drawTree" returnType="void" visibility="public">
+          <Argument type="Graphics" name="g"/>
+          <Argument type="BinNode" name="root"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="DisplaySimpleTree" package="com.mycompany.arboledecision" visibility="public" xPosition="920.0" yPosition="820.0">
+      <Fields>
+        <Field name="scrollpane" type="JScrollPane" visibility="package"/>
+        <Field name="panel" type="DisplayPanel" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="DecisionTree" name="t"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="noBranch" source="com.mycompany.arboledecision.BinNode" target="com.mycompany.arboledecision.BinNode" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="yesBranch" source="com.mycompany.arboledecision.BinNode" target="com.mycompany.arboledecision.BinNode" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.arboledecision.BinNode" target="com.mycompany.arboledecision.BinNode" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.arboledecision.DisplayPanel" target="com.mycompany.arboledecision.BinNode" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="rootNode" source="com.mycompany.arboledecision.DecisionTree" target="com.mycompany.arboledecision.BinNode" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="com.mycompany.arboledecision.DecisionTree" target="com.mycompany.arboledecision.BinNode" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="t" source="com.mycompany.arboledecision.DisplayPanel" target="com.mycompany.arboledecision.DecisionTree" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="next" source="com.mycompany.arboledecision.BinNode" target="com.mycompany.arboledecision.BinNode" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="panel" source="com.mycompany.arboledecision.DisplaySimpleTree" target="com.mycompany.arboledecision.DisplayPanel" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
