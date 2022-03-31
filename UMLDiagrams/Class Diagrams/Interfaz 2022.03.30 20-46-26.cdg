@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Interfaz">
+  <ClassDiagramComponents>
+    <Class name="Interfaz" package="com.mycompany.arboledecision" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="keyboardInput" type="BufferedReader" visibility="private" isStatic="true"/>
+        <Field name="newTree" type="DecisionTree" visibility="private" isStatic="true"/>
+        <Field name="tabla_hash" type="HashTable" visibility="private" isStatic="true"/>
+        <Field name="COMMA_DELIMITER" type="String" visibility="private" isStatic="true"/>
+        <Field name="fileRoute" type="String" visibility="private"/>
+        <Field name="fileLoaded" type="boolean" visibility="private" isStatic="true"/>
+        <Field name="file" type="File" visibility="private" isStatic="true"/>
+        <Field name="jButton1" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton2" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton3" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton4" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jButton6" type="javax.swing.JButton" visibility="private"/>
+        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
+        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents
+void" visibility="private"/>
+        <Method name="jButton1ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton4ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton3ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton6ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="jButton2ActionPerformed" returnType="void" visibility="private">
+          <Argument type="java.awt.event.ActionEvent" name="evt"/>
+        </Method>
+        <Method name="loadFile" returnType="void" visibility="private"/>
+        <Method name="limpiar" returnType="String" visibility="private" isStatic="true">
+          <Argument type="String" name="texto"/>
+        </Method>
+        <Method name="generateTree" returnType="void" visibility="package" isStatic="true"/>
+        <Method name="queryTree" returnType="void" visibility="package" isStatic="true"/>
+        <Method name="optionToExit" returnType="void" visibility="package" isStatic="true"/>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations/>
+</ClassDiagram>
