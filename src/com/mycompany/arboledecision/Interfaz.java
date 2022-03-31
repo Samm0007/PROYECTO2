@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
@@ -27,7 +26,7 @@ public class Interfaz extends javax.swing.JFrame {
     private static BufferedReader keyboardInput = new BufferedReader(new InputStreamReader(System.in));
     private static DecisionTree newTree;
     private static HashTable tabla_hash;
-    private static String COMMA_DELIMITER = ",";
+    private static final String COMMA_DELIMITER = ",";
     private String fileRoute;
     private static boolean fileLoaded = false;
     private static File file;
@@ -104,26 +103,31 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/animales2.jpg"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(300, 300, 300)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(3, 3, 3)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1420, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(300, 300, 300)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,12 +178,18 @@ public class Interfaz extends javax.swing.JFrame {
             Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+/**
+ * LLama a la carga del archivo
+ * @param evt 
+ */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         loadFile();
     }//GEN-LAST:event_jButton4ActionPerformed
-
+/**
+ * @author Sam
+ * @param evt Evento que se ejecuta al presionar el boton
+ */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         if (!fileLoaded) {
@@ -201,7 +211,10 @@ public class Interfaz extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El conocimiento " + conocimiento + " No existe en nuestra base de conocimientos");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+/**
+ * Resetea todos los atributos de la clase
+ * @param evt 
+ */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         fileRoute = "";
@@ -210,7 +223,10 @@ public class Interfaz extends javax.swing.JFrame {
         newTree = null;
         tabla_hash = null;
     }//GEN-LAST:event_jButton6ActionPerformed
-
+/**
+ * Muestra una version grafica del arbol de decision
+ * @param evt 
+ */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if (!fileLoaded) {
@@ -218,14 +234,17 @@ public class Interfaz extends javax.swing.JFrame {
             return;
         }
         newTree.setTotalnodes(0);
-        newTree.computeNodePositions(); //finds x,y positions of the tree nodes
-        newTree.setMaxheight(newTree.treeHeight(newTree.getRootNode())); //finds tree height for scaling y axis
-        DisplaySimpleTree dt = new DisplaySimpleTree(newTree);//get a display panel
+        newTree.computeNodePositions(); //encuentra las posiciones x e y de los nodos del arbol
+        newTree.setMaxheight(newTree.treeHeight(newTree.getRootNode())); //encuentra las dimensiones del arbol
+        DisplaySimpleTree dt = new DisplaySimpleTree(newTree);//crea un panel
         dt.setSize(new Dimension(1000, 800));
         dt.setLocation(500, 0);
         dt.setVisible(true); //show the display
     }//GEN-LAST:event_jButton2ActionPerformed
-
+/**
+ * Carga el un archivo que funciona como BBDD para el programa y genera el arbol llamando a generateTree
+ * @see generateTree()
+ */
     private void loadFile() {
         // Se crea un objeto de la clase JFileChooser para escoger el archivo
         JFileChooser filePath = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -238,7 +257,6 @@ public class Interfaz extends javax.swing.JFrame {
 
             fileRoute = filePath.getSelectedFile().getAbsolutePath();
             // establecer la etiqueta en la ruta del archivo seleccionado
-
             System.out.println(fileRoute);
 
             //Validación para la seleccion de un archivo txt
@@ -256,10 +274,10 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     private static String limpiar(String texto) {
+        //Posibles entradas de caracteres
         String original = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ";
         // Cadena de caracteres ASCII que reemplazarán los originales.
         String ascii = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYBaaaaaaaceeeeiiiionoooooouuuuyy";
-        String output = texto;
         for (int i = 0; i < original.length(); i++) {
             // Reemplazamos los caracteres especiales.
 
@@ -268,12 +286,14 @@ public class Interfaz extends javax.swing.JFrame {
         }
         return texto;
     }
-
+/**
+ * Genera el arbol de decision segun el archivo cargado en el atributo field
+ */
     static void generateTree() {
         System.out.println("\nGENERAR ARBOLES DE DECISION");
         System.out.println("======================");
 
-        // Create instance of class DecisionTree
+        // Crea una instancia de la cale DecisionTree
         newTree = new DecisionTree();
         newTree.setFile(file);
 
@@ -283,12 +303,13 @@ public class Interfaz extends javax.swing.JFrame {
             String line;
             int cont = 1;
             while ((line = br.readLine()) != null) {
-
+                //Corta donde haya comas y la combierte en un arreglo de 3 posiciones, donde 0 = pregunta 1 = No y 2 = Si
                 String[] values = line.split(COMMA_DELIMITER);
                 String node = values[0];
                 String nodeNo = values[1];
                 String nodeYes = values[2];
 
+                //Elimina espacios en blanco, vuelve todo minuscula y eimina cambia caracteres especiales
                 node = limpiar(node).trim().toLowerCase();
                 nodeNo = limpiar(nodeNo).trim().toLowerCase();
                 nodeYes = limpiar(nodeYes).trim().toLowerCase();
@@ -298,7 +319,8 @@ public class Interfaz extends javax.swing.JFrame {
                 System.out.println("node " + node);
                 System.out.println("nodeL " + nodeNo);
                 System.out.println("nodeR " + nodeYes);
-
+                
+                //Si es la primera linea crea la raiz y sus dos primeros hijos
                 if (cont == 1) { //create root
                     int rootId = tabla_hash.insertar(node);
                     int noId = tabla_hash.insertar(nodeNo);
@@ -328,6 +350,11 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     /* QUERY TREE */
+    /**
+     * @sam
+     * Llama a DecisionTree.queryBinTree()
+     * @throws IOException 
+     */
     static void queryTree() throws IOException {
         System.out.println("\nQUERY ARBOL DECISION");
         System.out.println("===================");
@@ -338,6 +365,11 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     /* OPTION TO EXIT PROGRAM */
+    /**
+     * @author jose
+     * Confirma si se quiere seguir jugando o salir de la ronda
+     * @throws IOException 
+     */
     static void optionToExit() throws IOException {
         String[] options = {"Si", "No"};
         int result = JOptionPane.showOptionDialog(

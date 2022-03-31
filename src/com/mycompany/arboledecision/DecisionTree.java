@@ -11,15 +11,13 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 
 /**
- *
+ *  Clase del arbol de decision
  * @author isa
  */
 class DecisionTree {
@@ -106,6 +104,15 @@ class DecisionTree {
     }
 
     /* ADD YES NODE */
+    /**
+     * @author sams
+     * Anade la respuesta SI de un nodo hijo a una pregunta
+     * @see searchTreeAndAddYesNode(BinNode currentNode,
+            int existingNodeID, int newNodeID, String newQuestAns)
+     * @param existingNodeID ID de la pregunta
+     * @param newNodeID ID de la respuesta
+     * @param newQuestAns String de la respuesta
+     */
     public void addYesNode(int existingNodeID, int newNodeID, String newQuestAns) {
         // If no root node do nothing
 
@@ -122,7 +129,15 @@ class DecisionTree {
             System.out.println("Nodo " + existingNodeID + " no encontrado");
         }
     }
-
+/**
+ * @author sam
+ * Busca el nodo y confirma si este existe, luego si este tiene ya una respuesta si como hijo la sobreescribe
+ * @param currentNode Nodo actual
+ * @param existingNodeID ID del nodo actual
+ * @param newNodeID ID del nuevo nodo
+ * @param newQuestAns String del nuevo nodo
+ * @return 
+ */
     /* SEARCH TREE AND ADD YES NODE */
     private boolean searchTreeAndAddYesNode(BinNode currentNode,
             int existingNodeID, int newNodeID, String newQuestAns) {
@@ -159,6 +174,15 @@ class DecisionTree {
     }
 
     /* ADD NO NODE */
+      /**
+    * @author sam
+     * Anade la respuesta NO de un nodo hijo a una pregunta
+     * @see searchTreeAndAddNoNode(BinNode currentNode,
+            int existingNodeID, int newNodeID, String newQuestAns)
+     * @param existingNodeID ID de la pregunta
+     * @param newNodeID ID de la respuesta
+     * @param newQuestAns String de la respuesta
+     */
     public void addNoNode(int existingNodeID, int newNodeID, String newQuestAns) {
         // If no root node do nothing
 
@@ -177,6 +201,15 @@ class DecisionTree {
     }
 
     /* SEARCH TREE AND ADD NO NODE */
+    /**
+    * @author sam
+    * Busca el nodo y confirma si este existe, luego si este tiene ya una respuesta si como hijo la sobreescribe
+    * @param currentNode Nodo actual
+    * @param existingNodeID ID del nodo actual
+    * @param newNodeID ID del nuevo nodo
+    * @param newQuestAns String del nuevo nodo
+    * @return 
+    */
     private boolean searchTreeAndAddNoNode(BinNode currentNode,
             int existingNodeID, int newNodeID, String newQuestAns) {
         if (currentNode.getNodeID() == existingNodeID) {
@@ -215,12 +248,15 @@ class DecisionTree {
     public void queryBinTree() throws IOException {
         queryBinTree(rootNode);
     }
-
+    /**
+     * @author sam
+     * @param texto String a limpiar de caracteres especiales
+     * @return texto sinc caracteres especiales 
+     */
     private static String limpiar(String texto) {
         String original = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝßàáâãäåæçèéêëìíîïðñòóôõöøùúûüýÿ";
         // Cadena de caracteres ASCII que reemplazarán los originales.
         String ascii = "AAAAAAACEEEEIIIIDNOOOOOOUUUUYBaaaaaaaceeeeiiiionoooooouuuuyy";
-        String output = texto;
         for (int i = 0; i < original.length(); i++) {
             // Reemplazamos los caracteres especiales.
 
@@ -229,7 +265,13 @@ class DecisionTree {
         }
         return texto;
     }
-
+/**
+ * @author isa
+ * Comienza a bajar por el arbol
+ * @see askQuestion(BinNode currentNode)
+ * @param currentNode Nodo actual
+ * @throws IOException 
+ */
     private void queryBinTree(BinNode currentNode) throws IOException {
 
         // Test for leaf node (answer) and missing branches
@@ -290,7 +332,7 @@ class DecisionTree {
                                 line = line.replace(currentNode.getQuestOrAns(), characteristic);
                                 System.out.println("NEW line " + line);
                             }
-                            sb.append(line + "\n");
+                            sb.append(line).append("\n");
                         }
                     }
 
@@ -340,17 +382,22 @@ class DecisionTree {
 
         Component[] m = c.getComponents();
 
-        for (int i = 0; i < m.length; i++) {
-
-            if (m[i].getClass().getName() == "javax.swing.JPanel") {
-                m[i].setBackground(Color.white);
+        for (Component m1 : m) {
+            if (m1.getClass().getName().equals("javax.swing.JPanel")) {
+                m1.setBackground(Color.white);
             }
-
-            if (c.getClass().isInstance(m[i]));
-            getComponents((Container) m[i]);
+            if (c.getClass().isInstance(m1)) {
+                ;
+            }
+            getComponents((Container) m1);
         }
     }
-
+    /**
+     * @author sam
+     * Va haciendo las preguntas correspondiente al nodo
+     * @param currentNode Nodo actual
+     * @throws IOException 
+     */
     private void askQuestion(BinNode currentNode) throws IOException {
         String[] options = {"Si", "No"};
 
@@ -388,12 +435,21 @@ class DecisionTree {
         }
     }
 
-    /* OUTPUT BIN TREE */
+    /**
+     * Llama a outputBinTree(String tag, BinNode currentNode)
+     * @see outputBinTree(String tag, BinNode currentNode)
+     * @param tag
+     * @param currentNode Nodo actual
+     */
     public void outputBinTree() {
 
         outputBinTree("1", rootNode);
     }
-
+    /**
+     * Se desplaza por el arbol segun las respuestas dadas
+     * @param tag
+     * @param currentNode Nodo actual
+     */
     private void outputBinTree(String tag, BinNode currentNode) {
 
         // Check for empty node

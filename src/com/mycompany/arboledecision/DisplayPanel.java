@@ -11,7 +11,7 @@ import java.text.Normalizer;
 import javax.swing.JPanel;
 
 /**
- *
+ *Clase para pintar el arbol
  * @author isa
  */
 class DisplayPanel extends JPanel {

@@ -10,14 +10,18 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 /**
- *
+ *Clase para mostrar el arbol
  * @author isa
  */
 public class DisplaySimpleTree extends JFrame {
-    JScrollPane scrollpane;
+  JScrollPane scrollpane;
+  
   DisplayPanel panel;
   
-
+  /**
+   * Muestra la representacion grafica del arbol
+   * @param t arbol
+   */
   public DisplaySimpleTree(DecisionTree t) {
     panel = new DisplayPanel(t);
     panel.setPreferredSize(new Dimension(300, 300));

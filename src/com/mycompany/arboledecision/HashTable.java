@@ -5,7 +5,7 @@
 package com.mycompany.arboledecision;
 
 /**
- *
+ *Clase para generar un hashtable
  * @author isa
  */
 public class HashTable {
@@ -14,6 +14,10 @@ public class HashTable {
     BinNode tabla[];
     int tamanno_tabla;
     
+    /**
+     * Constructor de hash table
+     * @param tamaño tamanio del table
+     */
     public HashTable(int tamaño) {
     this.tamanno_tabla = tamaño;
     this.tabla = new BinNode[tamanno_tabla];
@@ -22,7 +26,11 @@ public class HashTable {
         this.tabla[i] = null;
         }
     }
-    
+    /**
+     * Crear hash de la tabla
+     * @param llave llave para el hash
+     * @return hash
+     */
     public int hashing (String llave){
         int valor = 0;
         int posicion = 1;
@@ -40,7 +48,11 @@ public class HashTable {
             posicion++;
         } return (valor % tamanno_tabla);
     }
-    
+    /**
+     * Insertar en la tabla hash
+     * @param nombre string del valor del nodo
+     * @return posicion dentrod e la tabla
+     */
     public int insertar(String nombre){
         int posicion = hashing(nombre);
         boolean existe = false;
@@ -66,7 +78,12 @@ public class HashTable {
         
         return posicion;
     }
-
+    
+    /**
+     * Busca el nodo correspondiente al String
+     * @param nombre String del nodo
+     * @return Nodo si este existe
+     */
     public BinNode buscar(String nombre){
         int posicion = hashing(nombre);
         BinNode temp = this.tabla[posicion];
@@ -90,25 +107,22 @@ public class HashTable {
             return null;
         }
     }
-    
+    /**
+     * Vacia la tabla hash
+     */
     public void vaciado(){
         for (int i = 0; i < tamanno_tabla; i++){
             this.tabla[i] = null;
         }
     }
-    
+    /**
+     * Imprime la tabla hash
+     */
     public void imprimir(){
         for (int i = 0; i < tamanno_tabla; i++){
             if(this.tabla[i] != null){
                 BinNode temp = this.tabla[i];
                 System.out.println("Id "+temp.getNodeID()+" content "+temp.getQuestOrAns());
-//                if (this.tabla[i].getNext() != null){
-//                    BinNode temp = this.tabla[i].getNext();
-//                    while(temp != null){
-//                        System.out.println(temp.getQuestOrAns());
-//                        temp = temp.getNext();
-//                    }
-//                }
             }
         }
     }
